@@ -1,0 +1,18 @@
+Installation of Ansible:
+1) Install python 3.7 and python 3 depending on the one you want.  https://stackoverflow.com/questions/52677089/how-to-install-pip-for-python3-7-only
+https://linuxize.com/post/how-to-install-python-3-7-on-ubuntu-18-04/#:~:text=How%20to%20Install%20Python%203.7%20on%20Ubuntu%20Installing,ready%20to%20be%20used.%20You%20can...%20See%20More.
+		curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+		sudo apt update
+		sudo apt install software-properties-common
+		sudo add-apt-repository ppa:deadsnakes/ppa
+		sudo apt install python3.7
+		sudo apt install python3-pip
+2) To check if Pip and Python have been installed we use:
+		python3.7 -V && pip3 -V
+and output expected is:
+		Output:
+		Python 3.7.3
+		pip 19.1.1 from /usr/local/lib/python3.7/dist-packages/pip (python 3.7)
+3) Install Ansible using: https://www.digitalocean.com/community/questions/ansible-problem-shared-connection-to-server-closed
+		apt update -y && apt install ansible -y
+

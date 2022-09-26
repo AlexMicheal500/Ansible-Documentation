@@ -1,0 +1,73 @@
+Ansible Configuration Steps:
+root@localhost:~# cd /etc/ansible
+root@localhost:/etc/ansible# ls
+ansible.cfg  hosts
+root@localhost:/etc/ansible# nano hosts
+Then add the following:
+
+[Target_Server_1]
+170.187.202.153
+[Target_Server_2]
+170.187.202.156
+
+
+root@localhost:/etc/ansible# ansible --list-host all
+  hosts (2):
+    170.187.202.153
+    170.187.202.156
+root@localhost:/etc/ansible# ansible --list-host 170.187.202.153
+  hosts (1):
+    170.187.202.153
+root@localhost:/etc/ansible# ansible --list-host 170.187.202.156
+  hosts (1):
+    170.187.202.156
+
+To ping so we can check if we are connected we use:
+root@localhost:/etc/ansible# ansible all -m ping
+Output will be the following because it is not connected
+170.187.202.156 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: root@170.187.202.156: Permission denied (publickey,password).\r\n",
+    "unreachable": true
+}
+170.187.202.153 | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: root@170.187.202.153: Permission denied (publickey,password).\r\n",
+    "unreachable": true
+}
+
+TROUBLESHHOTING  Permission denied (publickey,password) ERROR
+The next thing we do is to generate an ssh key and copy the public key and input it into the destination server. 
+In the present server/ local machine / ansible server we use the following commands:
+		root@localhost:/etc/ansible# ssh-copy-id 170.187.202.156
+
+TROUBLESHOOTING ERROR: No identities found
+This means you have to generate SSH KEY and creat .ssh direcory using:
+		ssh-keygen
+
+THEN try "ssh-copy-id 170.187.202.153" again and you will find out taht you are able to send your pub key to the authorization key of your destination server automatically.
+
+THEN TRY pinging again using:
+		ansible all -m ping
+
+After pinging and we get the following ouput:
+
+170.187.202.153 | FAILED! => {
+    "changed": false,
+    "module_stderr": "Shared connection to 170.187.202.153 closed.\r\n",
+    "module_stdout": "/bin/sh: 1: /usr/bin/python: not found\r\n",
+    "msg": "MODULE FAILURE",
+    "rc": 127
+}
+170.187.202.156 | FAILED! => {
+    "changed": false,
+    "module_stderr": "Shared connection to 170.187.202.156 closed.\r\n",
+    "module_stdout": "/bin/sh: 1: /usr/bin/python: not found\r\n",
+    "msg": "MODULE FAILURE",
+    "rc": 127
+}
+
+Then we have to TROUBLESHOOT THE ABOVE https://www.digitalocean.com/community/questions/ansible-problem-shared-connection-to-server-closed https://www.tecmint.com/fix-shared-connection-to-x-x-xx-closed-ansible-error/
+To solve this, add ansible_python_interpreter=/usr/bin/python3 to each IP address in the hosts file
+		192.168.0.2 ansible_python_interpreter=/usr/bin/python3.7
+Then also make sure that python is installed in the destination server and it will work.

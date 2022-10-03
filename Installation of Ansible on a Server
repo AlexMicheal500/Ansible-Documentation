@@ -13,6 +13,8 @@ and output expected is:
 		Output:
 		Python 3.7.3
 		pip 19.1.1 from /usr/local/lib/python3.7/dist-packages/pip (python 3.7)
-3) Install Ansible using: https://www.digitalocean.com/community/questions/ansible-problem-shared-connection-to-server-closed
-		apt update -y && apt install ansible -y
+3) Install Ansible using: https://www.digitalocean.com/community/questions/ansible-problem-shared-connection-to-server-closed OR https://www.geeksforgeeks.org/ansible-introduction-and-installation-in-linux/
+		sudo apt-add-repository -y ppa:ansible/ansible 
+		sudo apt-get update
+		sudo apt-get install -y ansible
 

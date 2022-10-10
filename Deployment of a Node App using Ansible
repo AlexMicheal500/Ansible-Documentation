@@ -4,3 +4,4 @@ STEPS WE VWILL GO THROUGH:
   - install node and npm on server
   - copy node artifact and unpack
   - start application
+  - Verify if app is running successfully.

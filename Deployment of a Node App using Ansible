@@ -1,0 +1,6 @@
+STEPS WE VWILL GO THROUGH:
+1. Create a server
+2. Write an ansible playbook
+  - install node and npm on server
+  - copy node artifact and unpack
+  - start application

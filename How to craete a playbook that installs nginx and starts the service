@@ -1,1 +1,23 @@
 To learn about this visit https://www.youtube.com/watch?v=BeYUQaFS-vg
+Enter thye directory cd /etc/ansible
+Create a file my-playbook.yaml and pate the following commands:
+---
+- name: configure nginx and start service
+  hosts: all
+  become: true
+
+  tasks:
+  - name: install nginx
+    apt:
+      name: nginx
+      state: latest
+
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+        
+        
+Then we craete another file ansible.cfg      
+[defaults]
+host_key_checking = False

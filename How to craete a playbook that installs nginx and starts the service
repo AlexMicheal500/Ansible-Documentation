@@ -21,3 +21,6 @@ Create a file my-playbook.yaml and pate the following commands:
 Then we craete another file ansible.cfg      
 [defaults]
 host_key_checking = False
+
+To check if nginx is running, we write the folowing command:
+ps aux | grep nginx

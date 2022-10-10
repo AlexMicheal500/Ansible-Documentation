@@ -24,3 +24,46 @@ host_key_checking = False
 
 To check if nginx is running, we write the folowing command:
 ps aux | grep nginx
+
+To add a specific version of nginx, we, we us e google to search and we have a playbook such as the below:
+---
+- name: configure nginx and start service
+  hosts: all
+  become: true
+
+  tasks:
+  - name: install nginx
+    apt:
+      name: nginx=1.18.90.1.0ubuntu1
+      state: present
+
+  - name: start nginx
+    service:
+      name: nginx
+      state: started
+
+to un-install nginx from the target server, we use the following playbook:
+---
+- name: configure nginx and start service
+  hosts: all
+  become: true
+
+  tasks:
+  - name: un-install nginx
+    apt:
+      name: nginx=1.18*
+      state: absent
+
+  - name: start nginx
+    service:
+      name: nginx
+      state: stopped
+
+
+
+
+
+
+
+
+
